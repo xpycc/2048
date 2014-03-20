@@ -23,17 +23,20 @@ static int *mp(int a, int b) {
 int move_action(int maze[4][4], int action) {
   bool flag = false;
   static int arr[4];
+  static int mg[4];
   if (action < 0 || action > 3)
     return false;
   fm = maze; dir = action;
   for (int i = 0; i < 4; ++i) {
     int cc = 0;
     memset(arr, 0, sizeof arr);
+    memset(mg, 0, sizeof mg);
     for (int j = 3; j >= 0; --j) {
       int t = *mp(i, j);
       if (t != 0) {
-        if (cc > 0 && arr[cc - 1] == t) {
+        if (cc > 0 && arr[cc - 1] == t && !mg[cc - 1]) {
           arr[cc - 1] += t;
+          mg[cc - 1] = true;
           flag = true;
         } else {
           if (cc != 3 - j) flag = true;
