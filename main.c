@@ -16,7 +16,7 @@
 #define N_WHITE   8
 
 typedef int (*fun_type)(int[4][4]);
-fun_type trans = roundrobin;
+fun_type trans = next_move;
 
 static int maze[4][4], step, maze_copy[4][4];
 static short forge, back;
@@ -152,8 +152,14 @@ static void finish_game(bool ok) {
 int main(int argc, char **argv) {
   // TODO read arguments
   
-  if (argc > 1 && strcmp(argv[1], "-m") == 0)
-    trans = user_input;
+  if (argc > 1) {
+    if (strcmp(argv[1], "-m") == 0)
+      trans = user_input;
+    else if (strcmp(argv[1], "-rr") == 0)
+      trans = roundrobin;
+    else if (strcmp(argv[1], "-rr2") == 0)
+      trans = roundrobin2;
+  }
 
   initscr();
   cbreak();
