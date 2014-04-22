@@ -4,7 +4,7 @@ override CFLAGS += -std=c99
 # override CXXFLAGS += -std=c++11
 
 2048: main.o default_strategy.o strategy.o
-	$(CXX) -o $@ $^ -lncurses
+	$(CXX) $(LDFLAGS) -o $@ $^ -lncurses
 
 default_strategy.o: default_strategy.c strategy.h
 	$(CC) $(CFLAGS) -c default_strategy.c
